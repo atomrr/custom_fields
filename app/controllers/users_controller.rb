@@ -45,10 +45,14 @@ class UsersController < ApplicationController
     ]
   end
 
+
+  # Build attribute list for permitted params with
+  # custom fields of Tenant instance
   def with_custom_attributes
     attribute_names + custom_attrs
   end
 
+  # Build tenant's custom fields attribute list for permitted params
   def custom_attrs
     user.fields.map do |field|
       field.is_a?(MultipleChoice) ? ({ field.name.to_sym => [] }) : (field.name.to_sym)

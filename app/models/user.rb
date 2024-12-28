@@ -3,5 +3,4 @@ class User < ApplicationRecord
   include Fieldable
 
   # need to clear fields after deletion of tenant's fields?
-
 end

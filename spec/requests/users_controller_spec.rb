@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+# Need to add model spec
+
 describe UsersController, type: :request do
   let!(:user) { create :user}
   let(:user_stub_attrs) { build(:user).attributes.filter { | key, value| value.present? } }

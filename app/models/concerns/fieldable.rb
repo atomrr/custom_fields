@@ -8,7 +8,7 @@ module Fieldable
     has_many :fields, through: :tenant
   end
 
-
+  # Build custom field symbol list
   def fields_list
     @fields_list ||= field_names.map(&:to_sym)
   end
@@ -17,10 +17,13 @@ module Fieldable
     @field_names ||= fields.pluck(:name)
   end
 
+  # Build custom field symbol list for assignment
   def fields_eq_list
     @fields_eq_list ||= field_names.map{|name| (name + '=').to_sym}
   end
 
+  # Patches method_missing to add processing of
+  # retrieving and assignment custom fields values
   def method_missing(arg, argv = nil)
     return data.to_h.fetch(arg.to_s, nil) if fields_list.include?(arg)
 
@@ -29,6 +32,10 @@ module Fieldable
     super
   end
 
+  # Patches valid? method to add custom fields
+  # validations on specific instance
+  # by collecting field name as a key
+  # and validation_options as options for ActiveSupport validations
   def valid?(context = nil)
     unless self.new_record?
       validation_data = self.fields.map do |field|
