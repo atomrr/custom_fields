@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   validates :first_name, :last_name, presence: true
-  include Fieldable
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
-  # need to clear fields after deletion of tenant's fields?
+  include Fieldable
 end
