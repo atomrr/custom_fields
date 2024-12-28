@@ -7,7 +7,7 @@ class NumberField < Field
   # end
 
   def validation_options
-    { numericality: true }
+    { numericality: true, allow_blank: true }
   end
 
 

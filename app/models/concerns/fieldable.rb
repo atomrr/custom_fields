@@ -22,7 +22,7 @@ module Fieldable
   end
 
   def method_missing(arg, argv = nil)
-    return data.fetch(arg.to_s, nil) if fields_list.include?(arg)
+    return data.to_h.fetch(arg.to_s, nil) if fields_list.include?(arg)
 
     return self.data = self.data.to_h.merge({arg.to_s[0..-2] => argv}) if fields_eq_list.include?(arg)
 

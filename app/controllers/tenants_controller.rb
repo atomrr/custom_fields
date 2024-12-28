@@ -1,12 +1,12 @@
 class TenantsController < ApplicationController
   def show
-    render json: tenant
+    render json: tenant, include: { fields: { only: [:name, :type, :data] } }
   end
 
   def create
     @tenant = Tenant.new(permitted_params)
     if @tenant.save
-      render json: @tenant
+      render json: @tenant, include: { fields: { only: [:name, :type, :data] } }
     else
       render json: @tenant.errors, status: :unprocessable_content
     end
@@ -15,7 +15,7 @@ class TenantsController < ApplicationController
   def update
     tenant.assign_attributes(permitted_params)
     if tenant.save
-      render json: tenant
+      render json: tenant, include: { fields: { only: [:name, :type, :data] } }
     else
       render json: tenant.errors, status: :unprocessable_content
     end
