@@ -1,5 +1,5 @@
 class Field < ApplicationRecord
-  validates :name, presence: true, uniqueness: { scope: :tenant_id }
+  validates :name, presence: true, uniqueness: { scope: :tenant_id }, exclusion: { in: User.column_names }
   validates :type, presence: true
 
   belongs_to :tenant
